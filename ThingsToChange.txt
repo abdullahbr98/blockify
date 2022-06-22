@@ -1,0 +1,5 @@
+stlyes sheet to styled components
+Using react native card components 
+theme folder in infrastructure (31st lecture)
+custom fonts (35th lecture)[expo google fonts]
+

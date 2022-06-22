@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "blockify",
+    "slug": "snack-f46928c3-542e-465a-880b-29ecaa718879",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "../mainproject/src/assets/icon.png",
+    "splash": {
+      "image": "../mainproject/src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "../mainproject/src/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "../mainproject/src/assets/favicon.png"
+    }
+  }
+}
