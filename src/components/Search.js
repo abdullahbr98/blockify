@@ -7,6 +7,7 @@ import MapView, {
   Circle,
 } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_API_KEY } from "../../environments";
 import { Nav } from "./Nav";
 import {
@@ -77,7 +78,8 @@ export const Search = () => {
     latitudeDelta: LATITUDE_DELTA,
     longitudeDelta: LONGITUTDE_DELTA,
   });
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState({latitude: 31.481548630313945,
+    longitude: 74.30302482687031});
   const onPlaceSelected = (
     details: GooglePlaceDetails | null,
     flag: "origin" | "destination"
@@ -95,11 +97,11 @@ export const Search = () => {
                 initialRegion={INITIAL_POSITION}
               >
 
-                <Marker coordinate={{latitude:region.latitude, longitude:region.longitude}}/>
+                <Marker coordinate={{latitude:region.latitude, longitude:region.longitude}} pinColor="hotpink"/>
 
                 <Marker
                   coordinate={pin}
-                  pinColor="white"
+                  pinColor="blue"
                   draggable={true}
                   onDragStart={(e) => {
                     setPin({
@@ -123,6 +125,9 @@ export const Search = () => {
                   radius={500}
                   fillColor={"rgba(128,128,128,0.1)"}
                 />
+
+                <MapViewDirections origin={pin} destination={destination} apikey={GOOGLE_API_KEY} strokeWidth={4} strokeColor="blue"/>
+
               </MapView>
               <View style={styles.searchContainer}>
                 <GooglePlacesAutocomplete
@@ -136,6 +141,10 @@ export const Search = () => {
                       latitudeDelta: LATITUDE_DELTA,
                       longitudeDelta: LONGITUTDE_DELTA,
                     });
+                    setDestination({
+                      latitude: details.geometry.location.lat,
+                      longitude: details.geometry.location.lng,
+                    })
                   }}
                   query={{
                     key: GOOGLE_API_KEY,
