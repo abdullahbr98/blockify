@@ -76,13 +76,9 @@ const styles = StyleSheet.create({
     height: height / 12,
     paddingHorizontal: 15,
     justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
   },
   c1: {
     height: height / 5,
-    borderColor: 'red',
-    borderWidth: 1,
   },
   h1: {
     color: '#2F3C98',
@@ -116,8 +112,6 @@ const styles = StyleSheet.create({
   c2: {
     height: height / 3,
     alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
   },
   link: {
     color: '#2F3C98',
