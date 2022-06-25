@@ -27,17 +27,17 @@ function SettingsScreen() {
 }
 
 
-export const Nav = () => {
+export default function Nav(){
     return (
-        <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
                     tabBarIcon: (() => {
                         if (route.name == "Home") {
                             return <Ionicons name={'home'} size={20} color={'#2F3C98'} />;
-                        } else if (route.name == "Sign Up") {
-                            return <Ionicons name={'person-outline'} size={20} color={'#2F3C98'} />;
-                        }
+                        } 
+                        // else if (route.name == "Sign Up") {
+                        //     return <Ionicons name={'person-outline'} size={20} color={'#2F3C98'} />;
+                        // }
                         else if (route.name == "Search") {
                             return <Ionicons name={'search'} size={20} color={'#2F3C98'} />;
                         }
@@ -48,10 +48,9 @@ export const Nav = () => {
                 })}
                 barStyle={{ backgroundColor: '#DEDEDE' }}>
                 <Tab.Screen name="Home" component={SplashScreen} />
-                <Tab.Screen name="Sign Up" component={SignIn} />
+                {/* <Tab.Screen name="Sign Up" component={SignIn} /> */}
                 <Tab.Screen name="Search" component={Search} />
                 <Tab.Screen name="Scan" component={ScanProducts} />
             </Tab.Navigator>
-        </NavigationContainer>
     );
 }

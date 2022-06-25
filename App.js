@@ -16,19 +16,21 @@ import Experiment from './src/components/Experiment'
 import NavBottom from './src/components/NavBottom'
 import NavExample from './src/components/NavExample'
 import LoadingScreen from './src/components/LoadingScreen'
+import Seller from './src/components/Seller'
 // You can import from local files
 // import AssetExample from './components/AssetExample';
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
-import  {Nav}  from './src/components/Nav';
-import Barcode from './src/components/Barcode'
+import  Nav  from './src/components/Nav';
+import Barcode from './src/components/Barcode';
 import { ScanProducts } from './src/components/ScanProducts';
+import Manufacturer from './src/components/Manufacturer';
 
 export default function App() {
   return (
     <>
-      <Search />
+      <NavExample />
     </>
   );
 }

@@ -9,13 +9,32 @@ import {
   TextInput,
   Dimensions
 } from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown'
 import Constants from 'expo-constants';
 import NavExample from './NavExample'
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
+const users = ["Seller", "Buyer", "Manufacturer"];
 const {height,width} = Dimensions.get('window');
 export default function SignIn({navigation}) {
+  
+  const [userType,setUserType] = React.useState('')
+  
+
+  const typeHandler = (selectedItem,Index) => {
+    setUserType(selectedItem)
+    if(userType == 'Manufacturer'){
+      navigation.navigate('Manufacturer')
+    }else if (userType=='Seller'){
+      navigation.navigate('Seller')
+    }
+    else if(userType=='Buyer'){
+      navigation.navigate('Nav')
+    }
+  }
+
+
   return (
     <>
       <View style={styles.root}>
@@ -35,6 +54,7 @@ export default function SignIn({navigation}) {
             <Text style={styles.h2}>Welcome back.</Text>
             <Text style={styles.h2}>Sign in now!</Text>
           </View>
+
           <View style={styles.c2}>
             <TextInput
               style={styles.input}
@@ -45,13 +65,28 @@ export default function SignIn({navigation}) {
               secureTextEntry={true}
               placeholder={'Password'}
             />
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.7}>
-              <Text style={{ color: 'white', fontSize: 18 }}> Sign in </Text>
+          <TouchableOpacity onPress={typeHandler} style={styles.buttonStyle} activeOpacity={0.7}>
+              <Text style={{ color: 'white', fontSize: 18 }} > Sign in </Text>
             </TouchableOpacity>
             <Text style={{ color: '#787A85', marginVertical: 10 }}>
               Dont have an account?<Text style={styles.link} onPress={() => navigation.navigate('SignUp')}>Register</Text>
             </Text>
           </View>
+
+          <SelectDropdown
+	data={users}
+	onSelect={typeHandler}
+	buttonTextAfterSelection={(selectedItem, index) => {
+		// text represented after item is selected
+		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		return selectedItem
+	}}
+	rowTextForSelection={(item, index) => {
+		// text represented for each item in dropdown
+		// if data array is an array of objects then return item.property to represent item in dropdown
+		return item
+	}}
+/>
 
           <View style={styles.c3}>
             <Text style={{ color: '#787A85' }}>Or login with</Text>
@@ -141,5 +176,16 @@ const styles = StyleSheet.create({
     // alignItems: 'space-between',
     width: 180,
     justifyContent: 'space-between',
+  },
+  containerDropdown: {
+    flexBasis:100,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
