@@ -7,6 +7,7 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
+// import './shim' //changes
 import Constants from 'expo-constants';
 import SplashScreen from './src/components/SplashScreen'
 import SignIn from './src/components/SignIn'

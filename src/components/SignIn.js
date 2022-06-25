@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import Web3 from 'web3';
 import {
   Text,
   View,

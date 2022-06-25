@@ -1,20 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-import { contractABI, contractAddress } from "../Utils/constants";
+import { balanceContractABI, balanceContractAddress } from "../Utils/constants";
+import { productsContractABI, productsContractAddress } from "../Utils/constants";
+import { authenticateContractABI, authenticateContractAddress } from "../Utils/constants";
+import { transactionContractABI, transactionContractAddress } from "../Utils/constants";
+import { transactProductsContractABI, transactProductsContractAddress } from "../Utils/constants";
 
 export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
+
+
+// We will use this to get access to our desired Contract !
 const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
-  const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
+  const balanceContract = new ethers.Contract(balanceContractAddress, balanceContractABI, signer);
+  const authenticateContract = new ethers.Contract(authenticateContractAddress, authenticateContractABI, signer);
+  const transactionContract = new ethers.Contract(transactionContractAddress, transactionContractABI, signer);
+  const transactProductsContract = new ethers.Contract(transactProductsContractAddress, transactProductsContractABI, signer);
 
   return transactionsContract;
 };
 
+const createtransactProductsContract = () =>{
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const transactProductsContract = new ethers.Contract(transactProductsContractAddress, transactProductsContractABI, signer);
+  return transactProductsContract;
+}
+
+
+const createBalanceContract = () =>{
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const balanceContract = new ethers.Contract(balanceContractAddress, balanceContractABI, signer);
+  return balanceContract;
+}
+
+
+const createProductsContract = () =>{
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const productsContract = new ethers.Contract(productsContractAddress, productsContractABI, signer);
+  return productsContract;
+}
+
+const createTransactionContract = () =>{
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const transactionContract = new ethers.Contract(transactionContractAddress, transactionContractABI, signer);
+
+  return transactionContract;
+}
+
+const createAuthenticateContract = () =>{
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const authenticateContract = new ethers.Contract(authenticateContractAddress, authenticateContractABI, signer);
+
+  return authenticateContract;
+}
+
+
+// The real deal !
 export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
   const [currentAccount, setCurrentAccount] = useState("");
@@ -26,6 +77,7 @@ export const TransactionsProvider = ({ children }) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
+  // Not useful for us right now !
   const getAllTransactions = async () => {
     try {
       if (ethereum) {
@@ -52,7 +104,8 @@ export const TransactionsProvider = ({ children }) => {
       console.log(error);
     }
   };
-
+  
+  // Useless
   const checkIfWalletIsConnect = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
@@ -71,6 +124,7 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  // Might be USeful !
   const checkIfTransactionsExists = async () => {
     try {
       if (ethereum) {
@@ -86,6 +140,7 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  // Useless
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
@@ -101,6 +156,16 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+
+  const initialize =  async () => {
+    const balance =  createBalanceContract();
+    balance.setBalanceOfUser(address, '100');
+    balance.setBalanceOfUser(address, balance);
+    const products =  createProductsContract();
+    products.setProducts();
+  }
+
+  // We will use functions like these in the Manufacturer and Seller Components to send trigger smart contracts and make transactions
   const sendTransaction = async () => {
     try {
       if (ethereum) {
@@ -146,6 +211,8 @@ export const TransactionsProvider = ({ children }) => {
   }, [transactionCount]);
 
   return (
+
+    // Gotta modify this to only include stuff we need for our purposes !
     <TransactionContext.Provider
       value={{
         transactionCount,
